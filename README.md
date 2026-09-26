@@ -14,7 +14,7 @@ od().c("M", 2).add("d", 10).ps("MM/DD YYYY")
 ## Getting Started
 
 ```bash
-pnpm install @twisuki/ohday
+pnpm install @xtwis/ohday
 ```
 
 ## API
@@ -22,7 +22,7 @@ pnpm install @twisuki/ohday
 ### Input
 
 ```ts
-import { od } from "@twisuki/ohday"
+import { od } from "@xtwis/ohday"
 
 // String parsing (auto-detect format)
 od("2023-10-01 12:30:45") // "2023-10-01 12:30:45"
