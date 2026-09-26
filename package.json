@@ -1,0 +1,70 @@
+{
+  "name": "@xtwis/ohday",
+  "version": "1.0.0",
+  "packageManager": "pnpm@11.24.0",
+  "description": "Chainable, immutable, lightweight date/time processing library",
+  "author": "Twisuki",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "readme": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xtwis/ohday.git"
+  },
+  "bugs": "https://github.com/xtwis/ohday/issues",
+  "keywords": [
+    "date",
+    "time",
+    "ohday",
+    "immutable",
+    "chainable",
+    "lightweight"
+  ],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./plugin": {
+      "types": "./dist/plugin/index.d.ts",
+      "import": "./dist/plugin/index.mjs",
+      "require": "./dist/plugin/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "LICENSE",
+    "README.md",
+    "dist"
+  ],
+  "scripts": {
+    "build": "pnpm lint && pnpm check && pnpm test:run && tsup",
+    "check": "tsc --noEmit",
+    "fix": "eslint . --fix",
+    "lint": "eslint",
+    "prepack": "pnpm build",
+    "prepare": "husky",
+    "test": "cross-env TZ=Asia/Shanghai vitest",
+    "test:run": "pnpm test run",
+    "test:ui": "pnpm test --ui"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^9.1.0",
+    "@types/node": "^26.1.1",
+    "@vitest/ui": "^4.1.9",
+    "cross-env": "^7.0.3",
+    "dayjs": "^1.11.21",
+    "eslint": "^10.6.0",
+    "eslint-plugin-format": "^2.0.1",
+    "husky": "^9.1.7",
+    "tsup": "^8.5.1",
+    "typescript": "^6.0.0",
+    "vitest": "^4.1.9"
+  }
+}

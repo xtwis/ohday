@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "rootDir": "./src",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "paths": {
+      "@xtwis/ohday": ["./src/index.ts"],
+      "@xtwis/ohday/plugin": ["./src/plugin/index.ts"]
+    },
+    "resolveJsonModule": true,
+    "types": [],
+    "strict": true,
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "./dist",
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "ignoreDeprecations": "6.0"
+  },
+  "include": ["src/**/*"]
+}
