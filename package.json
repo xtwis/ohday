@@ -1,6 +1,6 @@
 {
   "name": "@xtwis/ohday",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0",
   "packageManager": "pnpm@11.24.0",
   "description": "Chainable, immutable, lightweight date/time processing library",
   "author": "Twisuki",
