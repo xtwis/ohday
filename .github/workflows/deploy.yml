@@ -1,0 +1,25 @@
+name: deploy
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  dispatch:
+    if: github.event_name != 'pull_request' || github.event.pull_request.merged
+    runs-on: ubuntu-latest
+    steps:
+      - uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.WEB_DISPATCH_TOKEN }}
+          repository: xtwis/web
+          event-type: docs-sync
+          client-payload: |
+            {"repo": "${{ github.repository }}", "sha": "${{ github.sha }}"}
