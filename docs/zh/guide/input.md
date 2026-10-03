@@ -1,5 +1,5 @@
 ---
-title: Input
+title: 输入
 order: 3
 ---
 
@@ -90,4 +90,4 @@ od(d) // 返回一个内部 Date 相同的 OhDay
 
 ## 下一步
 
-- [Change](./change.md): `c`, `cs`, `ce`.
+- [变更](./change.md): `c`, `cs`, `ce`.

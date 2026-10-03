@@ -137,6 +137,6 @@ declare module "@xtwis/ohday" {
 
 ## 下一步
 
-- [Input](./input.md): 五种构造 OhDay 的方式.
-- [Change](./change.md): `c`, `cs`, `ce`.
-- [Calculation](./calculate.md): `add`, `sub`, `diff`, `len`.
+- [输入](./input.md): 五种构造 OhDay 的方式.
+- [变更](./change.md): `c`, `cs`, `ce`.
+- [计算](./calculate.md): `add`, `sub`, `diff`, `len`.

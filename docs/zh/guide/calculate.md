@@ -1,5 +1,5 @@
 ---
-title: Calculation
+title: 计算
 order: 5
 ---
 
@@ -98,4 +98,4 @@ od("2023-10-01 12:30:45").len("w", "h") // 168 (一周的小时数)
 
 ## 下一步
 
-- [Comparison](./compare.md): `eq`, `lt`, `gt`, `le`, `ge`, `bt`.
+- [比较](./compare.md): `eq`, `lt`, `gt`, `le`, `ge`, `bt`.

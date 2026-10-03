@@ -1,5 +1,5 @@
 ---
-title: Comparison
+title: 比较
 order: 6
 ---
 
@@ -65,4 +65,4 @@ od("2023-10-01 23:59:59").lt("2023-10-02 00:00:01", "d")
 
 ## 下一步
 
-- [Output](./output.md): `s`, `p`, `pa`, `po`, `pd`.
+- [输出](./output.md): `s`, `p`, `pa`, `po`, `pd`.

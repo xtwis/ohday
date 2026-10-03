@@ -1,5 +1,5 @@
 ---
-title: Change
+title: 变更
 order: 4
 ---
 
@@ -81,4 +81,4 @@ od("2023-10-04 12:30:45").ce("w", 3).s // "2023-10-04 23:59:59" (周三 23:59)
 
 ## 下一步
 
-- [Calculation](./calculate.md): `add`, `sub`, `diff`, `len`.
+- [计算](./calculate.md): `add`, `sub`, `diff`, `len`.
