@@ -41,7 +41,7 @@ The internal implementation is `_cmp(target, scope)`, which returns `cs(scope).t
 
 ## bt(target1, target2, scope?)
 
-Between, with inclusive start and exclusive end:
+`between`: checks whether the date lies between `target1` and `target2`, with inclusive start and exclusive end:
 
 ```ts
 od("2023-10-01").bt("2023-09-30", "2023-10-02") // true

@@ -13,7 +13,7 @@ hero:
       link: ./guide/getting-started.md
     - theme: alt
       text: API 参考
-      link: ./reference/api.md
+      link: ./reference/ohday.md
     - theme: alt
       text: GitHub
       link: https://github.com/xtwis/ohday

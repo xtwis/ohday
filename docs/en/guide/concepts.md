@@ -9,100 +9,62 @@ Before diving into individual methods, this page sketches ohday's overall design
 
 ## Design Philosophy
 
-Four commitments shape every API decision:
+Three commitments shape every API decision:
 
-- **Immutable.** Every method returns a new OhDay. Nothing is mutated, ever.
-- **Chainable.** All transformations compose with `.`.
-- **Short.** Method names are one or two characters where possible.
+- **Immutable chain.** Every method returns a new OhDay, so chains can be safely forked.
+- **Short and unified naming.** Method names are as short as possible while staying readable. Parameter names are consistent across the API.
 - **Zero dependencies.** Nothing to vendor at runtime.
 
-These four together produce a library that is small enough to vendor inline, fast enough to call in tight loops, and predictable enough to reason about without reading the source.
+These three together produce a library that is small enough to vendor inline, fast enough to call in tight loops, and predictable enough to reason about without reading the source.
 
-## Mental Model
+## Basic Model
 
-```mermaid
-flowchart LR
-    I["input"] --> P["parse into $d"]
-    P --> M["method on $d"]
-    M --> N["new OhDay with new $d"]
-    N --> M
-```
+ohday operates on a thin object model: an `OhDay` instance wraps a `Date`, and every method either reads the wrapped `Date`, transforms it into a new one, or compares it against a target. A handful of small concepts carry the rest.
 
-An OhDay instance wraps a single `Date` in the internal field `$d`. Every method reads that field, performs some computation, and returns a new OhDay with its own `$d`. The wrapper is a thin facade over the JavaScript `Date`, with parsing, formatting, and plugin extensions layered on top.
+### Flag
 
-You never read `$d` from application code. Reach the value through the getters, the formatted string through `p()`, and the underlying Date through `pd()`.
+`OhDayFlag` is the union of time units that appear as method parameters across the API: `.c("M", 2)`, `.add("d", 10)`, `.lt(target, "y")`.
 
-## Flag
+Flag is used in every method that asks "which time unit?". Two flags differ from intuition: `M` is month, not minute (lowercase `m` is minute); `w` is day of week (0 to 6), not a unit of duration.
 
-`OhDayFlag` is the union of time units that appear across the API as method parameters:
+See the [API Reference](./reference/types.md#flag) for the full list.
 
-| Flag | Unit               | Note                                        |
-| ---- | ------------------ | ------------------------------------------- |
-| `y`  | year               |                                             |
-| `M`  | month              | 1 to 12, not 0 to 11 like the native `Date` |
-| `w`  | week (day of week) | 0 is Sunday, 6 is Saturday                  |
-| `d`  | day                |                                             |
-| `h`  | hour               | 0 to 23                                     |
-| `m`  | minute             |                                             |
-| `s`  | second             |                                             |
-| `ms` | millisecond        |                                             |
+### Token
 
-Flags are used wherever a method asks "which time unit?". Examples: `.c("M", 2)` changes the month, `.add("d", 10)` adds days, `.lt(target, "y")` compares by year.
+`OhDayToken` is the union of format tokens that appear in format strings.
 
-Two flags deserve attention because they differ from intuition:
+Token drives both directions of the formatter at the same time: `p(fmt)` produces output, `od(str, fmt)` parses input. Both directions share the same vocabulary, so what you print you can read back.
 
-- `M` is month, not `m`. Lowercase `m` is minute.
-- `w` is the day of week (0 to 6), not a unit of duration. Methods that accept `w` treat it as a delta on `d`, so `c("w", 0)` lands on Sunday and `cs("w")` jumps to the start of the week.
+See the [API Reference](./reference/types.md#token) for the full list.
 
-## Token
+### Scope and Unit
 
-`OhDayToken` is the union of format tokens that appear in format strings:
-
-| Token  | Output              | Example |
-| ------ | ------------------- | ------- |
-| `YYYY` | 4-digit year        | 2023    |
-| `YY`   | 2-digit year        | 23      |
-| `MM`   | 2-digit month       | 10      |
-| `M`    | 1 or 2-digit month  | 10      |
-| `DD`   | 2-digit day         | 01      |
-| `D`    | 1 or 2-digit day    | 1       |
-| `HH`   | 2-digit hour        | 12      |
-| `mm`   | 2-digit minute      | 30      |
-| `m`    | 1 or 2-digit minute | 30      |
-| `ss`   | 2-digit second      | 45      |
-| `s`    | 1 or 2-digit second | 45      |
-| `SSS`  | 3-digit millisecond | 678     |
-
-Tokens are used by `p(fmt)` to produce output and by `od(str, fmt)` to parse input. Both directions share the same vocabulary.
-
-## Scope and Unit
-
-These two terms sound similar but mean different things:
+Two terms that sound similar but mean different things:
 
 - **Scope** is the time dimension an operation acts on. It is the first parameter of `c`, `cs`, `ce`, `add`, `sub`, `len`, and the optional second parameter of comparison methods. `c("M", 2)` operates on the month scope.
 - **Unit** is the measurement unit of the result. It is the optional second parameter of `diff` and `len`. `diff(target, "d")` returns the difference in days.
 
-| Method                        | First param is | Second param is   |
-| ----------------------------- | -------------- | ----------------- |
-| `c` `cs` `ce`                 | scope          | value or unitless |
-| `add` `sub`                   | scope          | offset            |
-| `len`                         | scope          | unit              |
-| `diff`                        | target         | unit              |
-| `eq` `lt` `gt` `le` `ge` `bt` | target         | scope (optional)  |
-
 Both parameters accept the same `OhDayFlag` values; the difference is purely semantic.
 
-## Internal Fields
+### OhDayLike
 
-Fields prefixed with `$` are internal state and are not part of the public surface:
+Most methods that take a `target` (`diff` and every comparison method) accept any `OhDayLike`. This is a single union that covers every way to express a date: a `Date` object, another `OhDay` instance (cloned), a string (auto-detected or parsed with a custom format), a number (Unix timestamp in ms), a number array `[year, month, date, hour, minute, second, ms?]`, or an object `{ year, month, date, day, hour, minute, second, ms }`. The same defaults that apply when constructing an OhDay apply here too.
 
-| Field | Type      | Set by                    | Purpose                                           |
-| ----- | --------- | ------------------------- | ------------------------------------------------- |
-| `$d`  | `Date`    | constructor, every method | the underlying `Date` object                      |
-| `$iw` | `boolean` | `isoWeek` plugin          | ISO week override that propagates along the chain |
-| `$i`  | `boolean` | `od.use`                  | plugin installation guard                         |
+See [Input](./input.md) for the full parsing rules.
 
-These exist for plugin authors who need to read or write internal state. Application code should treat them as read-only.
+## Core Operations
+
+Five categories cover everything the API does:
+
+| Category    | Methods                                                                | Guide                         |
+| ----------- | ---------------------------------------------------------------------- | ----------------------------- |
+| Input       | `od(input, format?)`                                                   | [Input](./input.md)           |
+| Change      | `c`, `cs`, `ce`                                                        | [Change](./change.md)         |
+| Calculation | `add`, `sub`, `diff`, `len`                                            | [Calculation](./calculate.md) |
+| Comparison  | `lt`, `gt`, `eq`, `le`, `ge`, `bt`                                     | [Comparison](./compare.md)    |
+| Output      | `s`, `iso`, `ts`, `dd`, `g`, `p`, `pa`, `po`, `pd`, plus named getters | [Output](./output.md)         |
+
+Pick the category that matches the operation you have in mind. Most chains move through two or three of them.
 
 ## Plugin System
 
@@ -137,6 +99,4 @@ See the [Fullname Plugin](../plugin/fullname.md) and [ISO Week Plugin](../plugin
 
 ## Next
 
-- [Input](./input.md) for the five ways to construct an OhDay.
-- [Change](./change.md) for `c`, `cs`, and `ce`.
-- [Calculation](./calculate.md) for `add`, `sub`, `diff`, and `len`.
+- Browse the rest of the guide from the sidebar.

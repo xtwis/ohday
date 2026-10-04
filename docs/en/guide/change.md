@@ -9,7 +9,7 @@ Three methods cover all changes to an OhDay. Each takes a scope flag and an opti
 
 ## c(scope, value)
 
-Sets the field at the given scope to the given value:
+`change`: sets the field at the given scope to the given value:
 
 ```ts
 import { od } from "@xtwis/ohday"
@@ -35,7 +35,7 @@ The check is `Date.getDate() !== source.date` after the set call. JavaScript's D
 
 ## cs(scope, value?)
 
-Sets the field at the given scope, then zeros out everything below it. `cs("M")` lands on the first day of the month at 00:00:00:
+`change to start`: sets the field at the given scope to the given value, then zeros out everything below it. `cs("M")` lands on the first day of the month at 00:00:00:
 
 ```ts
 od("2023-10-01 12:30:45").cs("y").s // "2023-01-01 00:00:00"
@@ -52,7 +52,7 @@ od("2023-10-04 12:30:45").cs("w", 5).s // "2023-10-06 00:00:00" (start of Friday
 
 ## ce(scope, value?)
 
-The dual of `cs`. Sets the field to its maximum value, then fills everything below with the maximum at that level:
+`change to end`: dual of `cs`. Sets the field to its maximum value, then fills everything below with the maximum at that level:
 
 ```ts
 od("2023-10-01 12:30:45").ce("y").s // "2023-12-31 23:59:59"

@@ -37,7 +37,7 @@ d.od // OhDay 实例 (自身的克隆)
 
 ## p(format?)
 
-按格式串输出字符串. 格式串使用 [Concepts 中的 token 词汇](./concepts.md#token):
+`print`: 按格式串输出字符串. 格式串使用 [Concepts 中的 token 词汇](./concepts.md#token):
 
 ```ts
 const d = od("2023-10-01 12:30:45")
@@ -51,7 +51,7 @@ d.p("HH:mm:ss") // "12:30:45"
 
 ## pa(scope?)
 
-按给定精度输出数组. 默认 scope 是 `ms` (全精度):
+`print as array`: 按给定精度输出数组. 默认 scope 是 `ms` (全精度):
 
 ```ts
 const d = od("2023-10-01 12:30:45")
@@ -66,7 +66,7 @@ d.pa("h") // [2023, 10, 1, 12]
 
 ## po(scope?)
 
-按给定精度输出对象:
+`print as object`: 按给定精度输出对象:
 
 ```ts
 d.po() // { year: 2023, month: 10, date: 1, hour: 12, minute: 30, second: 45, ms: 0 }
@@ -78,7 +78,7 @@ d.po("M") // { year: 2023, month: 10 }
 
 ## pd(scope?)
 
-按给定精度输出 `Date` 对象. 结果始终对齐到 scope 的 **起点**:
+`print as date`: 按给定精度输出 `Date` 对象. 结果始终对齐到 scope 的 **起点**:
 
 ```ts
 d.pd() // 2023-10-01 12:30:45 对应的 Date (全精度)
@@ -91,7 +91,7 @@ d.pd("y") // 2023-01-01 00:00:00 对应的 Date (当年起点)
 
 ## 内部 Getter: g
 
-`g(scope?)` 是命名 getter 的一般形式. 不传参数时返回时间戳 (与 `ts` 相同). 传 scope 时返回该 scope 的值, 其中 `w` 返回周几:
+`get`: `g(scope?)` 是命名 getter 的一般形式. 不传参数时返回时间戳 (与 `ts` 相同). 传 scope 时返回该 scope 的值, 其中 `w` 返回周几:
 
 ```ts
 d.g() // 1696159845000 (时间戳, 毫秒)

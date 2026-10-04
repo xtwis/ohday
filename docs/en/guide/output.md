@@ -37,7 +37,7 @@ Two values diverge from the native Date object. `month` is 1 to 12 (the calendar
 
 ## p(format?)
 
-Print as a formatted string. The format string uses the [token vocabulary from concepts](./concepts.md#token):
+`print`: print as a formatted string. The format string uses the [token vocabulary from concepts](./concepts.md#token):
 
 ```ts
 const d = od("2023-10-01 12:30:45")
@@ -51,7 +51,7 @@ The default format is `YYYY-MM-DD HH:mm:ss`. `p` is the same as the `.s` getter 
 
 ## pa(scope?)
 
-Print as an array at the given precision. The default scope is `ms` (full precision):
+`print as array`: print as an array at the given precision. The default scope is `ms` (full precision):
 
 ```ts
 const d = od("2023-10-01 12:30:45")
@@ -66,7 +66,7 @@ Note that `pa("w")` is the same as `pa("d")`. The week scope reuses day precisio
 
 ## po(scope?)
 
-Print as an object at the given precision:
+`print as object`: print as an object at the given precision:
 
 ```ts
 d.po() // { year: 2023, month: 10, date: 1, hour: 12, minute: 30, second: 45, ms: 0 }
@@ -78,7 +78,7 @@ Same precision rules as `pa`.
 
 ## pd(scope?)
 
-Print as a `Date` object at the given precision. The result is always aligned to the **start** of the scope:
+`print as date`: print as a `Date` object at the given precision. The result is always aligned to the **start** of the scope:
 
 ```ts
 d.pd() // Date object for 2023-10-01 12:30:45 (full precision)
@@ -91,7 +91,7 @@ This is the one method that is **not** truncation; it is alignment. `pd("d")` gi
 
 ## Internal Getter: g
 
-`g(scope?)` is the general form of the named getters. Without an argument, it returns the timestamp (same as `ts`). With a scope, it returns the value at that scope, where `w` returns the day of week:
+`get`: `g(scope?)` is the general form of the named getters. Without an argument, it returns the timestamp (same as `ts`). With a scope, it returns the value at that scope, where `w` returns the day of week:
 
 ```ts
 d.g() // 1696159845000 (timestamp in ms)

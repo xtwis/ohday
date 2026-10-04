@@ -91,4 +91,4 @@ This matters when you derive children from a base instance. The week behavior se
 ## Next
 
 - [Fullname Plugin](./fullname.md) for long-name method aliases.
-- [API Reference](../reference/api.md) for the complete public surface.
+- [API Reference](../reference/ohday.md) for the complete public surface.
