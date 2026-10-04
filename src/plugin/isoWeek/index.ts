@@ -1,45 +1,24 @@
 import type { OhDay, OhDayPlugin } from "@xtwis/ohday"
 
+/**
+ * @description Switches ohday from default (Sun=0) to ISO 8601 (Mon=1) week numbering. See the docs site for usage.
+ * @see https://x.twis.uk/en/ohday/plugin/iso-week.html
+ */
 declare module "@xtwis/ohday" {
   interface OhDayFactory {
-    /**
-     * Global switch for ISO 8601 week numbering (1=Monday..7=Sunday)
-     *   - Passing `undefined` (no argument) enables it; a boolean sets it explicitly
-     *   - Enabled by default once the plugin is installed
-     * @returns The current global ISO-week state
-     */
     isoWeek: (flag?: boolean) => boolean
-    /**
-     * Short-name alias of `isoWeek`
-     * @see {@link OhDayFactory.isoWeek}
-     */
     iw: (flag?: boolean) => boolean
   }
 
   interface OhDay {
     /**
-     * @description Internal per-instance ISO-week override, propagated stickily across the chain
+     * @description Internal per-instance ISO-week override.
      * @internal
      */
     $iw?: boolean
-    /**
-     * @description Chainable switch to enable ISO week numbering for this instance and its descendants
-     *   - Passing `undefined` (no argument) enables it; a boolean sets it explicitly
-     */
     isoWeek: (flag?: boolean) => OhDay
-    /**
-     * @description Short-name alias of instance `isoWeek`
-     * @see {@link OhDay.isoWeek}
-     */
     iw: (flag?: boolean) => OhDay
-    /**
-     * @description Chainable switch to restore default week numbering (0=Sunday..6=Saturday)
-     */
     normalWeek: () => OhDay
-    /**
-     * @description Short-name alias of `normalWeek`
-     * @see {@link OhDay.normalWeek}
-     */
     nw: () => OhDay
   }
 }

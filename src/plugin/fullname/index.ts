@@ -1,251 +1,67 @@
-import type { OhDay, OhDayPlugin } from "@xtwis/ohday"
+import type { OhDayPlugin } from "@xtwis/ohday"
 
+/**
+ * @description Long-name aliases for every short method on `OhDay`. See the docs site for the full alias map.
+ * @see https://x.twis.uk/en/ohday/plugin/fullname.html
+ */
 declare module "@xtwis/ohday" {
   interface OhDay {
     // region Information (getter aliases)
-    /**
-     * @description Full-name alias of getter `s`
-     * @see {@link OhDay.s}
-     */
     getString: () => string
-    /**
-     * @description Full-name alias of getter `iso`
-     * @see {@link OhDay.iso}
-     */
     getISOString: () => string
-    /**
-     * @description Full-name alias of getter `ts`
-     * @see {@link OhDay.ts}
-     */
     getTime: () => number
-    /**
-     * @description Full-name alias of getter `ts`
-     * @see {@link OhDay.ts}
-     */
     getTimeStamp: () => number
-    /**
-     * @description Full-name alias of getter `dd`
-     * @see {@link OhDay.dd}
-     */
     getDateObject: () => Date
-    /**
-     * @description Full-name alias of getter `year`
-     * @see {@link OhDay.year}
-     */
     getYear: () => number
-    /**
-     * @description Full-name alias of getter `month`
-     * @see {@link OhDay.month}
-     */
     getMonth: () => number
-    /**
-     * @description Full-name alias of getter `date`
-     * @see {@link OhDay.date}
-     */
     getDate: () => number
-    /**
-     * @description Full-name alias of getter `hour`
-     * @see {@link OhDay.hour}
-     */
     getHour: () => number
-    /**
-     * @description Full-name alias of getter `minute`
-     * @see {@link OhDay.minute}
-     */
     getMinute: () => number
-    /**
-     * @description Full-name alias of getter `second`
-     * @see {@link OhDay.second}
-     */
     getSecond: () => number
-    /**
-     * @description Full-name alias of getter `ms`
-     * @see {@link OhDay.ms}
-     */
     getMS: () => number
-    /**
-     * @description Full-name alias of getter `ms`
-     * @see {@link OhDay.ms}
-     */
     getMilliseconds: () => number
-    /**
-     * @description Full-name alias of getter `od`
-     * @see {@link OhDay.od}
-     */
     clone: () => OhDay
     // endregion
 
     // region Output
-    /**
-     * @description Full-name alias of `p()`
-     * @see {@link OhDay.p}
-     */
     format: OhDay["p"]
-    /**
-     * @description Full-name alias of `p()`
-     * @see {@link OhDay.p}
-     */
     print: OhDay["p"]
-    /**
-     * @description Full-name alias of `p()`
-     * @see {@link OhDay.p}
-     */
     toString: OhDay["p"]
-    /**
-     * @description Full-name alias of `pa()`
-     * @see {@link OhDay.pa}
-     */
     printArray: OhDay["pa"]
-    /**
-     * @description Full-name alias of `pa()`
-     * @see {@link OhDay.pa}
-     */
     toArray: OhDay["pa"]
-    /**
-     * @description Full-name alias of `po()`
-     * @see {@link OhDay.po}
-     */
     printObject: OhDay["po"]
-    /**
-     * @description Full-name alias of `po()`
-     * @see {@link OhDay.po}
-     */
     toObject: OhDay["po"]
-    /**
-     * @description Full-name alias of `pd()`
-     * @see {@link OhDay.pd}
-     */
     printDate: OhDay["pd"]
-    /**
-     * @description Full-name alias of `pd()`
-     * @see {@link OhDay.pd}
-     */
     toDate: OhDay["pd"]
-    /**
-     * @description Full-name alias of `pd()`
-     * @see {@link OhDay.pd}
-     */
     toDateObject: OhDay["pd"]
     // endregion
 
     // region Manipulation
-    /**
-     * @description Full-name alias of `c()`
-     * @see {@link OhDay.c}
-     */
     set: OhDay["c"]
-    /**
-     * @description Full-name alias of `c()`
-     * @see {@link OhDay.c}
-     */
     change: OhDay["c"]
-    /**
-     * @description Full-name alias of `cs()`
-     * @see {@link OhDay.cs}
-     */
     startOf: OhDay["cs"]
-    /**
-     * @description Full-name alias of `cs()`
-     * @see {@link OhDay.cs}
-     */
     changeToStart: OhDay["cs"]
-    /**
-     * @description Full-name alias of `ce()`
-     * @see {@link OhDay.ce}
-     */
     endOf: OhDay["ce"]
-    /**
-     * @description Full-name alias of `ce()`
-     * @see {@link OhDay.ce}
-     */
     changeToEnd: OhDay["ce"]
-    /**
-     * @description Full-name alias of `g()`
-     * @see {@link OhDay.g}
-     */
     get: OhDay["g"]
-    /**
-     * @description Full-name alias of `sub()`
-     * @see {@link OhDay.sub}
-     */
     subtract: OhDay["sub"]
-    /**
-     * @description Full-name alias of `len()`
-     * @see {@link OhDay.len}
-     */
     lengthOf: OhDay["len"]
-    /**
-     * @description Full-name alias of `len()`
-     * @see {@link OhDay.len}
-     */
     getLength: OhDay["len"]
     // endregion
 
     // region Comparison
-    /**
-     * @description Full-name alias of `eq()`
-     * @see {@link OhDay.eq}
-     */
     isSame: OhDay["eq"]
-    /**
-     * @description Full-name alias of `eq()`
-     * @see {@link OhDay.eq}
-     */
     isEqual: OhDay["eq"]
-    /**
-     * @description Full-name alias of `lt()`
-     * @see {@link OhDay.lt}
-     */
     isBefore: OhDay["lt"]
-    /**
-     * @description Full-name alias of `lt()`
-     * @see {@link OhDay.lt}
-     */
     isLessThan: OhDay["lt"]
-    /**
-     * @description Full-name alias of `gt()`
-     * @see {@link OhDay.gt}
-     */
     isAfter: OhDay["gt"]
-    /**
-     * @description Full-name alias of `gt()`
-     * @see {@link OhDay.gt}
-     */
     isGreaterThan: OhDay["gt"]
-    /**
-     * @description Full-name alias of `le()`
-     * @see {@link OhDay.le}
-     */
     isSameOrBefore: OhDay["le"]
-    /**
-     * @description Full-name alias of `le()`
-     * @see {@link OhDay.le}
-     */
     isBeforeOrSame: OhDay["le"]
-    /**
-     * @description Full-name alias of `le()`
-     * @see {@link OhDay.le}
-     */
     isLessOrEqual: OhDay["le"]
-    /**
-     * @description Full-name alias of `ge()`
-     * @see {@link OhDay.ge}
-     */
     isSameOrAfter: OhDay["ge"]
-    /**
-     * @description Full-name alias of `ge()`
-     * @see {@link OhDay.ge}
-     */
     isAfterOrSame: OhDay["ge"]
-    /**
-     * @description Full-name alias of `ge()`
-     * @see {@link OhDay.ge}
-     */
     isGreaterOrEqual: OhDay["ge"]
-    /**
-     * @description Full-name alias of `bt()`
-     * @see {@link OhDay.bt}
-     */
     isBetween: OhDay["bt"]
     // endregion
   }

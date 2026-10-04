@@ -2,7 +2,8 @@ import { raw } from "./util"
 
 // region Time Flags
 /**
- * @description Flag type for marking time fields or units
+ * @description Flag type for marking time fields or units.
+ * @see https://x.twis.uk/en/ohday/reference/types.html#flag
  */
 export type OhDayFlag = "y" | "M" | "w" | "d" | "h" | "m" | "s" | "ms"
 

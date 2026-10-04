@@ -24,7 +24,8 @@ import { OhDay } from "./ohday"
 import { escapeRegExp, padStart, toNum } from "./util"
 
 /**
- * @description Acceptable time input types, including Date, OhDay, string, timestamp, number array and object
+ * @description Acceptable time input types, including Date, OhDay, string, timestamp, number array and object.
+ * @see https://x.twis.uk/en/ohday/reference/types.html#ohdaylike
  */
 export type OhDayLike = Date | OhDay | string | number | number[] | {
   year?: number
