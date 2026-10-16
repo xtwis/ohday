@@ -242,4 +242,4 @@ function use(plugin: OhDayPlugin): OhDayFactory
 
 插件接收 `OhDay` 类与 `od` 工厂, 然后修改类原型以添加新方法. 插件只安装一次, 函数上的 `$i` 标志防止重复安装.
 
-详见 [核心概念 - 插件机制](../guide/concepts.md#插件机制), 内置示例见 [插件文档](../plugin/).
+详见 [核心概念 - 插件机制](../guide/concepts.md#插件机制), 内置插件见侧边栏插件章节.

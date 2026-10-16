@@ -114,4 +114,4 @@ type OhDayPlugin = ((instance: typeof OhDay, factory: OhDayFactory) => void) & {
 
 A plugin receives the `OhDay` class and the `od` factory, then mutates the class prototype to add new methods. The `$i` flag marks whether the plugin has been installed, preventing duplicate installation.
 
-See [Concepts - Plugin System](../guide/concepts.md#plugin-system) for details and the [Plugin docs](../plugin/) for built-in examples.
+See [Concepts - Plugin System](../guide/concepts.md#plugin-system) for details and the Plugin section in the sidebar for built-in examples.

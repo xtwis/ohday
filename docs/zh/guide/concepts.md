@@ -27,7 +27,7 @@ ohday 运行在一个轻量的对象模型上: 一个 `OhDay` 实例把 `Date` �
 
 Flag 用在所有问 "哪个时间单位?" 的方法里. 有两个 Flag 跟直觉不同: `M` 是月, 不是分 (小写 `m` 才是分); `w` 是周几 (0 到 6), 不是周这个时长单位.
 
-完整列表见 [API 参考](./reference/types.md#flag).
+完整列表见 [API 参考](../reference/types.md#flag).
 
 ### Token
 
@@ -35,7 +35,7 @@ Flag 用在所有问 "哪个时间单位?" 的方法里. 有两个 Flag 跟直�
 
 Token 同时驱动格式化器的两个方向: `p(fmt)` 生成输出, `od(str, fmt)` 解析输入. 双向共用同一套词汇, 因此你能打印出来的就能再解析回去.
 
-完整列表见 [API 参考](./reference/types.md#token).
+完整列表见 [API 参考](../reference/types.md#token).
 
 ### Scope 和 Unit
 

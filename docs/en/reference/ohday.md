@@ -242,4 +242,4 @@ function use(plugin: OhDayPlugin): OhDayFactory
 
 The plugin receives the `OhDay` class and the `od` factory, then mutates the class prototype to add new methods. Plugins are installed once; the `$i` flag on the plugin function guards against duplicates.
 
-See [Concepts - Plugin System](../guide/concepts.md#plugin-system) and the [Plugin docs](../plugin/) for built-in examples.
+See [Concepts - Plugin System](../guide/concepts.md#plugin-system) and the Plugin section in the sidebar for built-in examples.

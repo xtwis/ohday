@@ -27,7 +27,7 @@ ohday operates on a thin object model: an `OhDay` instance wraps a `Date`, and e
 
 Flag is used in every method that asks "which time unit?". Two flags differ from intuition: `M` is month, not minute (lowercase `m` is minute); `w` is day of week (0 to 6), not a unit of duration.
 
-See the [API Reference](./reference/types.md#flag) for the full list.
+See the [API Reference](../reference/types.md#flag) for the full list.
 
 ### Token
 
@@ -35,7 +35,7 @@ See the [API Reference](./reference/types.md#flag) for the full list.
 
 Token drives both directions of the formatter at the same time: `p(fmt)` produces output, `od(str, fmt)` parses input. Both directions share the same vocabulary, so what you print you can read back.
 
-See the [API Reference](./reference/types.md#token) for the full list.
+See the [API Reference](../reference/types.md#token) for the full list.
 
 ### Scope and Unit
 

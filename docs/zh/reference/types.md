@@ -114,4 +114,4 @@ type OhDayPlugin = ((instance: typeof OhDay, factory: OhDayFactory) => void) & {
 
 插件接收 `OhDay` 类和 `od` 工厂, 然后修改类原型以添加新方法. `$i` 标志插件是否已安装, 防止重复安装.
 
-详见 [插件机制](../guide/concepts.md#插件机制), 内置示例见 [插件文档](../plugin/).
+详见 [插件机制](../guide/concepts.md#插件机制), 内置插件见侧边栏插件章节.
