@@ -1,6 +1,6 @@
 {
   "name": "@xtwis/ohday",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "packageManager": "pnpm@11.24.0",
   "description": "Chainable, immutable, lightweight date/time processing library",
   "author": "Twisuki",
@@ -9,6 +9,7 @@
     "access": "public"
   },
   "readme": "README.md",
+  "homepage": "https://x.twis.uk/ohday",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/xtwis/ohday.git"

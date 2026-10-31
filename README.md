@@ -36,8 +36,8 @@ console.log(d.s) // "2023-02-11 12:30:45"
 
 Full guides, API reference, and plugin docs live at:
 
-- English: <https://x.twis.uk/en/ohday/>
-- 简体中文: <https://x.twis.uk/zh/ohday/>
+- English: <https://x.twis.uk/ohday>
+- 简体中文: <https://x.twis.uk/zh/ohday>
 
 ## License
 

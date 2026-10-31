@@ -5,8 +5,8 @@ order: 0
 
 hero:
   name: "@xtwis/ohday"
-  text: Chainable, immutable, lightweight
-  tagline: A date/time processing library built around chaining and immutability. Every call returns a new instance.
+  text: Chainable, lightweight time processing
+  tagline: A date/time processing library built around chaining and immutability.
   actions:
     - theme: brand
       text: Get Started

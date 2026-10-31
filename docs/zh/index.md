@@ -5,8 +5,8 @@ order: 0
 
 hero:
   name: "@xtwis/ohday"
-  text: 可链式, 不可变, 轻量
-  tagline: 基于链式调用和不可变设计的日期/时间处理库. 每次调用都返回一个新实例.
+  text: 链式, 轻量的时间处理
+  tagline: 基于链式调用和不可变设计的日期/时间处理库.
   actions:
     - theme: brand
       text: 快速开始
