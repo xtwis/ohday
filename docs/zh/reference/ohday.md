@@ -24,21 +24,22 @@ type OhDayConstructor = new (input?: OhDayLike, format?: string) => OhDay
 
 ## Getter
 
-| Getter   | 类型     | 说明                           |
-| -------- | -------- | ------------------------------ |
-| `s`      | `string` | 默认格式 `YYYY-MM-DD HH:mm:ss` |
-| `iso`    | `string` | ISO 8601 格式                  |
-| `ts`     | `number` | Unix 时间戳, 毫秒              |
-| `dd`     | `Date`   | 内部 `Date` 的克隆             |
-| `year`   | `number` | 年 (例如 `2023`)               |
-| `month`  | `number` | 月, 1 到 12                    |
-| `date`   | `number` | 日, 1 到 31                    |
-| `day`    | `number` | 周几, 0 (周日) 到 6 (周六)     |
-| `hour`   | `number` | 时, 0 到 23                    |
-| `minute` | `number` | 分, 0 到 59                    |
-| `second` | `number` | 秒, 0 到 59                    |
-| `ms`     | `number` | 毫秒, 0 到 999                 |
-| `od`     | `OhDay`  | 自身的克隆                     |
+| Getter   | 类型      | 说明                           |
+| -------- | --------- | ------------------------------ |
+| `s`      | `string`  | 默认格式 `YYYY-MM-DD HH:mm:ss` |
+| `iso`    | `string`  | ISO 8601 格式                  |
+| `ts`     | `number`  | Unix 时间戳, 毫秒              |
+| `dd`     | `Date`    | 内部 `Date` 的克隆             |
+| `year`   | `number`  | 年 (例如 `2023`)               |
+| `month`  | `number`  | 月, 1 到 12                    |
+| `date`   | `number`  | 日, 1 到 31                    |
+| `day`    | `number`  | 周几, 0 (周日) 到 6 (周六)     |
+| `hour`   | `number`  | 时, 0 到 23                    |
+| `minute` | `number`  | 分, 0 到 59                    |
+| `second` | `number`  | 秒, 0 到 59                    |
+| `ms`     | `number`  | 毫秒, 0 到 999                 |
+| `od`     | `OhDay`   | 自身的克隆                     |
+| `ok`     | `boolean` | 内部 `Date` 有效时为 `true`    |
 
 ### g(scope?)
 

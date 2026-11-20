@@ -9,7 +9,7 @@ OhDay 通过 getter 与四个输出方法暴露值. 按你的代码期待的形�
 
 ## Getter
 
-每个 OhDay 提供 13 个最常用的 getter:
+每个 OhDay 提供 14 个最常用的 getter:
 
 ```ts
 import { od } from "@xtwis/ohday"
@@ -31,6 +31,8 @@ d.second // 45
 d.ms // 678
 
 d.od // OhDay 实例 (自身的克隆)
+
+d.ok // true (日期无效时为 false)
 ```
 
 两个值与原生 Date 对象不一致. `month` 是 1 到 12 (日历习惯), 不是 0 到 11. `day` 是 0 到 6 (0 是周日), 与 `Date.getDay()` 一致.

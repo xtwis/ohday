@@ -9,7 +9,7 @@ An OhDay exposes its value through getters and four output methods. Pick the one
 
 ## Getters
 
-Each OhDay has 13 getters for the most common values:
+Each OhDay has 14 getters for the most common values:
 
 ```ts
 import { od } from "@xtwis/ohday"
@@ -31,6 +31,8 @@ d.second // 45
 d.ms // 678
 
 d.od // OhDay instance (clone of self)
+
+d.ok // true (false when the date is invalid)
 ```
 
 Two values diverge from the native Date object. `month` is 1 to 12 (the calendar convention), not 0 to 11. `day` is 0 to 6 (0 is Sunday), matching `Date.getDay()`.

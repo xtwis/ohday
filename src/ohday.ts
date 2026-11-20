@@ -147,6 +147,14 @@ export class OhDay {
   }
 
   /**
+   * @description Whether the internal Date is valid.
+   * @see https://x.twis.uk/en/ohday/guide/output.html#getters
+   */
+  get ok(): boolean {
+    return !Number.isNaN(this.ts)
+  }
+
+  /**
    * @description General getter; returns the value at the given scope, or the timestamp without one.
    * @see https://x.twis.uk/en/ohday/reference/ohday.html#gscope
    */

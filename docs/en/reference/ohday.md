@@ -24,21 +24,22 @@ The parsed `Date` is stored internally and accessed through the getters and meth
 
 ## Getters
 
-| Getter   | Type     | Description                          |
-| -------- | -------- | ------------------------------------ |
-| `s`      | `string` | Default format `YYYY-MM-DD HH:mm:ss` |
-| `iso`    | `string` | ISO 8601 format                      |
-| `ts`     | `number` | Unix timestamp in milliseconds       |
-| `dd`     | `Date`   | Clone of the internal `Date`         |
-| `year`   | `number` | Year (e.g. `2023`)                   |
-| `month`  | `number` | Month, 1 to 12                       |
-| `date`   | `number` | Day of month, 1 to 31                |
-| `day`    | `number` | Day of week, 0 (Sun) to 6 (Sat)      |
-| `hour`   | `number` | Hour, 0 to 23                        |
-| `minute` | `number` | Minute, 0 to 59                      |
-| `second` | `number` | Second, 0 to 59                      |
-| `ms`     | `number` | Millisecond, 0 to 999                |
-| `od`     | `OhDay`  | Clone of self                        |
+| Getter   | Type      | Description                              |
+| -------- | --------- | ---------------------------------------- |
+| `s`      | `string`  | Default format `YYYY-MM-DD HH:mm:ss`     |
+| `iso`    | `string`  | ISO 8601 format                          |
+| `ts`     | `number`  | Unix timestamp in milliseconds           |
+| `dd`     | `Date`    | Clone of the internal `Date`             |
+| `year`   | `number`  | Year (e.g. `2023`)                       |
+| `month`  | `number`  | Month, 1 to 12                           |
+| `date`   | `number`  | Day of month, 1 to 31                    |
+| `day`    | `number`  | Day of week, 0 (Sun) to 6 (Sat)          |
+| `hour`   | `number`  | Hour, 0 to 23                            |
+| `minute` | `number`  | Minute, 0 to 59                          |
+| `second` | `number`  | Second, 0 to 59                          |
+| `ms`     | `number`  | Millisecond, 0 to 999                    |
+| `od`     | `OhDay`   | Clone of self                            |
+| `ok`     | `boolean` | `true` when the internal `Date` is valid |
 
 ### g(scope?)
 

@@ -1,3 +1,4 @@
+import type { OhDayLike } from "@xtwis/ohday"
 import { od } from "@xtwis/ohday"
 import dayjs from "dayjs"
 import duration from "dayjs/plugin/duration"
@@ -19,6 +20,16 @@ describe("输出", () => {
     expect(od(d).minute).toBe(dayjs(d).minute())
     expect(od(d).second).toBe(dayjs(d).second())
     expect(od(d).ms).toBe(dayjs(d).millisecond())
+  })
+
+  it("有效性", () => {
+    expect(od("2023-10-01 12:30:45").ok).toBe(true)
+    expect(od("2023-10-01").ok).toBe(true)
+    expect(od(0).ok).toBe(true)
+    expect(od("bad").ok).toBe(false)
+    expect(od("").ok).toBe(false)
+    expect(od(null as unknown as OhDayLike).ok).toBe(false)
+    expect(od(new Date(Number.NaN)).ok).toBe(false)
   })
 
   it("字符串", () => {

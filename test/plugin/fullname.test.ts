@@ -23,6 +23,8 @@ describe("插件 - fullname", () => {
     const cloned = d.clone()
     expect(cloned).not.toBe(d)
     expect(cloned.s).toBe(d.s)
+    expect(d.isValid()).toBe(d.ok)
+    expect(od("bad").isValid()).toBe(false)
   })
 
   it("output 方法", () => {

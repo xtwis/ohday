@@ -39,6 +39,7 @@ d.set("y", 2025).startOf("M").getString()
 | `getSecond()`                  | `.second` |
 | `getMS()`, `getMilliseconds()` | `.ms`     |
 | `clone()`                      | `.od`     |
+| `isValid()`                    | `.ok`     |
 
 ### Output
 

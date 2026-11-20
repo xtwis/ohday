@@ -21,6 +21,7 @@ declare module "@xtwis/ohday" {
     getMS: () => number
     getMilliseconds: () => number
     clone: () => OhDay
+    isValid: () => boolean
     // endregion
 
     // region Output
@@ -83,6 +84,7 @@ export const fullname: OhDayPlugin = (instance) => {
   instance.prototype.getMS = function () { return this.ms }
   instance.prototype.getMilliseconds = function () { return this.ms }
   instance.prototype.clone = function () { return this.od }
+  instance.prototype.isValid = function () { return this.ok }
   /* eslint-enable style/max-statements-per-line */
 
   instance.prototype.format = instance.prototype.p
