@@ -27,7 +27,7 @@ The change is positional. `c("d", 32)` asks for day 32 of October; JavaScript's 
 When changing the year or month leaves the date out of range, ohday falls back to the last valid day of the target month:
 
 ```ts
-od("2024-02-29").c("y", 2025).s // "2025-02-28 12:00:00"
+od("2024-02-29").c("y", 2025).s // "2025-02-28 00:00:00"
 od("2023-01-31").c("M", 2).s // "2023-02-28 00:00:00"
 ```
 

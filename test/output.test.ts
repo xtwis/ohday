@@ -28,6 +28,21 @@ describe("输出", () => {
     expect(od(d).p("M/D YY H:m:s")).toBe(dayjs(d).format("M/D YY H:m:s"))
   })
 
+  it("年份补零", () => {
+    expect(od("2024-06-15").c("y", 50).p("YYYY-MM-DD")).toBe("0050-06-15")
+    expect(od("2024-06-15").c("y", 50).p("YY-MM-DD")).toBe("50-06-15")
+    expect(od("2024-06-15").c("y", 950).p("YYYY-MM-DD")).toBe("0950-06-15")
+    expect(od("0500-06-15").p("DD/MM/YYYY")).toBe("15/06/0500")
+  })
+
+  it("未知 token 与转义", () => {
+    expect(od("2023-10-05").p("MMMM")).toBe("MMMM")
+    expect(od("2023-10-05").p("dddd")).toBe("dddd")
+    expect(od("2023-10-05").p("DDDD")).toBe("DDDD")
+    expect(od("2023-10-05").p("[Year] YYYY")).toBe("Year 2023")
+    expect(od("2023-10-05").p("[YYYY]")).toBe("YYYY")
+  })
+
   it("数组", () => {
     const d1 = new Date()
     const d2 = dayjs(d1)

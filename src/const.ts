@@ -82,14 +82,16 @@ export const DEFAULT_FORMAT = "YYYY-MM-DD HH:mm:ss"
 export const REGEX_DIGITS = /\d+/g
 export const REGEX_DATE_SEP = /[-/]/
 export const REGEX_TIME_SEP = /:/
+export const REGEX_ZONE_SUFFIX = /(?:Z|[+-]\d{2}:?\d{2})$/i
+export const REGEX_FORMAT = /\[([^\]]*)\]|([a-z])\2*/gi
 
-const REGEX_DIGIT_4 = raw`(\d{4})`
+const REGEX_DIGIT_1_4 = raw`(\d{1,4})`
 const REGEX_DIGIT_2 = raw`(\d{2})`
 const REGEX_DIGIT_3 = raw`(\d{3})`
 const REGEX_DIGIT_1_2 = raw`(\d{1,2})`
 
 export const FORMAT_TOKEN_REGEX_MAP: Record<string, string> = {
-  [FORMAT_TOKEN_YYYY]: REGEX_DIGIT_4,
+  [FORMAT_TOKEN_YYYY]: REGEX_DIGIT_1_4,
   [FORMAT_TOKEN_YY]: REGEX_DIGIT_2,
   [FORMAT_TOKEN_SSS]: REGEX_DIGIT_3,
   [FORMAT_TOKEN_MM]: REGEX_DIGIT_2,

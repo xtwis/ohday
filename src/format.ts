@@ -18,7 +18,9 @@ import {
   OBJECT_KEYS,
   REGEX_DATE_SEP,
   REGEX_DIGITS,
+  REGEX_FORMAT,
   REGEX_TIME_SEP,
+  REGEX_ZONE_SUFFIX,
 } from "./const"
 import { OhDay } from "./ohday"
 import { escapeRegExp, padStart, toNum } from "./util"
@@ -38,6 +40,10 @@ export type OhDayLike = Date | OhDay | string | number | number[] | {
   ms?: number
 }
 
+const BASE_YEAR = 2000
+
+type DateArgs = [number | undefined, number | undefined, number | undefined, number | undefined, number | undefined, number | undefined, number | undefined]
+
 /**
  * @description Parse a string into a Date object, supports custom format
  *   - Default supported formats: date separated by -, /, time separated by :, date and time separated by space, milliseconds separated by .
@@ -47,6 +53,7 @@ export function parseString(input: string, format?: string): Date | null {
   if (format) {
     let pattern = "^"
     const fields: string[] = []
+    let shortYear = false
     let i = 0
 
     // Match predefined tokens one by one
@@ -56,6 +63,7 @@ export function parseString(input: string, format?: string): Date | null {
         if (format.startsWith(token, i)) {
           pattern += regexPart
           fields.push(FORMAT_TOKEN_KEY_MAP[token])
+          shortYear ||= token === FORMAT_TOKEN_YY
 
           i += token.length
           matched = true
@@ -90,58 +98,36 @@ export function parseString(input: string, format?: string): Date | null {
     }
 
     // Pad YY to 20xx
-    if (values[0] !== undefined && values[0] < 100) {
-      values[0] += 2000
-    }
+    if (shortYear && values[0] !== undefined)
+      values[0] += BASE_YEAR
 
-    return complete(...values as [number | undefined, number | undefined, number | undefined, number | undefined, number | undefined, number | undefined, number | undefined])
+    return complete(...values as DateArgs)
+  }
+
+  // Check if input contains date separator
+  const hasDateSep = REGEX_DATE_SEP.test(input)
+  // Check if input contains time separator
+  const hasTimeSep = REGEX_TIME_SEP.test(input)
+
+  if ((!hasDateSep && !hasTimeSep) || !input.match(REGEX_DIGITS))
+    return null
+
+  if (hasDateSep && REGEX_ZONE_SUFFIX.test(input))
+    return new Date(input)
+
+  if (hasDateSep && hasTimeSep) {
+    // Split date and time parts
+    const [datePart, timePart = ""] = input.replace("T", " ").split(/\s+/)
+    const nums = [...(datePart.match(REGEX_DIGITS) ?? []), ...(timePart.match(REGEX_DIGITS) ?? [])].map(toNum)
+    return complete(...nums as DateArgs)
+  }
+  else if (hasDateSep) {
+    const nums = (input.match(REGEX_DIGITS) ?? []).map(toNum)
+    return complete(...nums as DateArgs)
   }
   else {
-    // Check if input contains date separator
-    const hasDateSep = REGEX_DATE_SEP.test(input)
-    // Check if input contains time separator
-    const hasTimeSep = REGEX_TIME_SEP.test(input)
-
-    if (!hasDateSep && !hasTimeSep) {
-      return null
-    }
-    else if (hasDateSep && hasTimeSep) {
-      // Split date and time parts
-      const [datePart, timePart] = input.replace("T", " ").split(/\s+/)
-      const dateNums = datePart.match(REGEX_DIGITS) ?? []
-      const timeNums = timePart.match(REGEX_DIGITS) ?? []
-
-      return complete(
-        toNum(dateNums[0]),
-        toNum(dateNums[1]),
-        toNum(dateNums[2]),
-        toNum(timeNums[0]),
-        toNum(timeNums[1]),
-        toNum(timeNums[2]),
-        timeNums[3] ? toNum(timeNums[3]) : undefined,
-      )
-    }
-    else if (hasDateSep && !hasTimeSep) {
-      const nums = input.match(REGEX_DIGITS) ?? []
-      return complete(
-        toNum(nums[0]),
-        toNum(nums[1]),
-        toNum(nums[2]),
-      )
-    }
-    else {
-      // Condition: !hasDateSep && hasTimeSep
-      const nums = input.match(REGEX_DIGITS) ?? []
-      return complete(
-        undefined,
-        undefined,
-        undefined,
-        toNum(nums[0]),
-        toNum(nums[1]),
-        toNum(nums[2]),
-        nums[3] ? toNum(nums[3]) : undefined,
-      )
-    }
+    const nums = (input.match(REGEX_DIGITS) ?? []).map(toNum)
+    return complete(undefined, undefined, undefined, nums[0], nums[1], nums[2], nums[3])
   }
 }
 
@@ -152,27 +138,35 @@ export function parseString(input: string, format?: string): Date | null {
  */
 export function complete(year?: number, month?: number, date?: number, hour?: number, minute?: number, second?: number, ms?: number): Date {
   const now = new Date()
-  const hasYear = year !== undefined
-  const hasMonth = month !== undefined
-  const hasDate = date !== undefined
 
-  const y = hasYear ? year! : now.getFullYear()
-  const M = hasMonth ? month! : hasYear ? 1 : now.getMonth() + 1
-  const d = hasDate ? date! : (hasYear || hasMonth) ? 1 : now.getDate()
-  const h = hour ?? 0
-  const m = minute ?? 0
-  const s = second ?? 0
-  const msVal = ms ?? 0
+  const y = year ?? now.getFullYear()
+  const M = month ?? (year === undefined ? now.getMonth() + 1 : 1)
+  const D = date ?? (year === undefined && month === undefined ? now.getDate() : 1)
+  const twoDigitYear = y >= 0 && y < 100
 
-  return new Date(y, M - 1, d, h, m, s, msVal)
+  const result = new Date(
+    twoDigitYear ? BASE_YEAR : y,
+    M - 1,
+    D,
+    hour ?? 0,
+    minute ?? 0,
+    second ?? 0,
+    ms ?? 0,
+  )
+  if (twoDigitYear)
+    result.setFullYear(y)
+  return result
 }
 
 /**
  * @description Parse input into a Date object, supports Date, OhDay, string, timestamp, array and object
  */
 export function parseInput(input?: OhDayLike, format?: string): Date {
-  if (!input)
+  if (input === undefined)
     return new Date()
+
+  if (input === null)
+    return new Date(Number.NaN)
 
   if (input instanceof Date)
     return new Date(input)
@@ -189,12 +183,17 @@ export function parseInput(input?: OhDayLike, format?: string): Date {
   }
 
   if (Array.isArray(input)) {
-    return complete(...input as [number | undefined, number | undefined, number | undefined, number | undefined, number | undefined, number | undefined, number | undefined])
+    return complete(...input as DateArgs)
   }
 
   if (typeof input === "object") {
     const obj = input as Record<string, number>
-    return complete(obj.year, obj.month, obj.date, obj.hour, obj.minute, obj.second, obj.ms)
+    const d = complete(obj.year, obj.month, obj.date, obj.hour, obj.minute, obj.second, obj.ms)
+    const day = obj.day
+    if (day === undefined)
+      return d
+    d.setDate(d.getDate() + day - d.getDay())
+    return d
   }
 
   return new Date()
@@ -202,6 +201,7 @@ export function parseInput(input?: OhDayLike, format?: string): Date {
 
 /**
  * @description Format a Date object into a string with custom format
+ *   - A token must be a whole run of one letter; unknown runs and [bracketed] text pass through unchanged
  */
 export function formatDate(date: Date, formatStr: string = DEFAULT_FORMAT): string {
   const year = date.getFullYear()
@@ -212,24 +212,12 @@ export function formatDate(date: Date, formatStr: string = DEFAULT_FORMAT): stri
   const second = date.getSeconds()
   const ms = date.getMilliseconds()
 
-  const tokenRegex = new RegExp([
-    FORMAT_TOKEN_YYYY,
-    FORMAT_TOKEN_YY,
-    FORMAT_TOKEN_MM,
-    FORMAT_TOKEN_M,
-    FORMAT_TOKEN_DD,
-    FORMAT_TOKEN_D,
-    FORMAT_TOKEN_HH,
-    FORMAT_TOKEN_H,
-    FORMAT_TOKEN_mm,
-    FORMAT_TOKEN_m,
-    FORMAT_TOKEN_ss,
-    FORMAT_TOKEN_s,
-    FORMAT_TOKEN_SSS,
-  ].join("|"), "g")
-  return formatStr.replace(tokenRegex, (token) => {
+  return formatStr.replace(REGEX_FORMAT, (token, escaped) => {
+    if (escaped)
+      return escaped
+
     switch (token) {
-      case FORMAT_TOKEN_YYYY: return padStart(year)
+      case FORMAT_TOKEN_YYYY: return year < 0 ? `-${padStart(-year, 4)}` : padStart(year, 4)
       case FORMAT_TOKEN_YY: return padStart(year % 100, 2)
       case FORMAT_TOKEN_MM: return padStart(month, 2)
       case FORMAT_TOKEN_M: return padStart(month)
