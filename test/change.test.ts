@@ -28,6 +28,15 @@ describe("操作", () => {
     expect(od(d).ce("m", 30).ts).toBe(dayjs(d).minute(30).endOf("m").valueOf())
   })
 
+  it("零值参数", () => {
+    const d = "2023-10-01 12:30:45"
+    expect(od(d).cs("M", 0).s).toBe("2022-12-01 00:00:00")
+    expect(od(d).cs("d", 0).s).toBe("2023-09-30 00:00:00")
+    expect(od(d).cs("h", 0).s).toBe("2023-10-01 00:00:00")
+    expect(od(d).ce("M", 0).s).toBe("2022-12-31 23:59:59")
+    expect(od(d).ce("h", 0).s).toBe("2023-10-01 00:59:59")
+  })
+
   it("日期溢出", () => {
     const d1 = "2023-10-31 12:30:45"
     const d2 = "2024-02-29 12:30:45"

@@ -202,7 +202,7 @@ export class OhDay {
     if (scope === FLAG_WEEK)
       return this.c("w", value ?? 0).cs("d")
 
-    let d = value ? this.c(scope, value) : this
+    let d = value === undefined ? this : this.c(scope, value)
     const h = getFlagIndex(scope)
     for (let i = h + 1; i < 7; i++) {
       const s = getFlagByIndex(i)
@@ -219,7 +219,7 @@ export class OhDay {
     if (scope === FLAG_WEEK)
       return this.c("w", value ?? 6).ce("d")
 
-    let d = value ? this.c(scope, value) : this
+    let d = value === undefined ? this : this.c(scope, value)
     const h = getFlagIndex(scope)
     for (let i = h + 1; i < 7; i++) {
       const s = getFlagByIndex(i)
